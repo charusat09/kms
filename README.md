@@ -1,13 +1,19 @@
-# README
+# Knowledge Management System
+
 
 ![logo](http://www.sprc.co.th/images/family/people/knowledge/thum-km-logo.png)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ruby on Rails
+-------------
+
+This application requires:
+
+* Ruby-2.3.0
+* Rails 5.0.0.1
+
 
 Things you may want to cover:
 
-* Ruby version
 
 * System dependencies
 
