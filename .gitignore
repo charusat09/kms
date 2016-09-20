@@ -16,3 +16,4 @@ coverage.data
 **.swp
 *.sql*
 .vscode/*
+config/database.yml
