@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>KnowledgeManagementSystem</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+  	<div class= "error_msg">
+	  	<% flash.each do |message_type, message| %>
+				<%= message %>
+			<% end %> 
+		</div>
+    <%= yield %>
+  </body>
+</html>
