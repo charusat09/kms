@@ -24,6 +24,13 @@
   </div>
 
   <div class="field">
+    <%= f.fields_for :picture, resource.picture do |picture_fields| %>
+      <%= picture_fields.label :profile_picture %><br />
+      <%= picture_fields.file_field :image,accept: 'image/png,image/gif,image/jpeg'%>
+    <% end %>
+  </div>
+
+  <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
