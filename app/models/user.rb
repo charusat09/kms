@@ -5,5 +5,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable, :lockable
   has_one :picture, as: :imageable
   has_many :articles, :dependent => :destroy
+  accepts_nested_attributes_for :picture
 end
-

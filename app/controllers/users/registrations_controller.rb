@@ -3,9 +3,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
 # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
-  # def new
-  #   super
-  # end
+  def new
+    build_resource({})
+    self.resource.picture = Picture.new
+    respond_with self.resource
+  end
 
   # POST /resource
   # def create
@@ -42,7 +44,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
     devise_parameter_sanitizer.permit(:sign_up) do |user_params|
-      user_params.permit(:name, :email, :phone, :city, :password, :password_confirmation)
+      user_params.permit(:name, :email, :phone, :city, :password, :password_confirmation, picture_attributes: [:image])
     end
     
     devise_parameter_sanitizer.permit(:account_update) do |u|
