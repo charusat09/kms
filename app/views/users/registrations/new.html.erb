@@ -26,7 +26,7 @@
   <div class="field">
     <%= f.fields_for :picture, resource.picture do |picture_fields| %>
       <%= picture_fields.label :profile_picture %><br />
-      <%= picture_fields.file_field :image,accept: 'image/png,image/gif,image/jpeg'%>
+      <%= picture_fields.file_field :image,accept: image_format_validation %>
     <% end %>
   </div>
 
