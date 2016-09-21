@@ -1,0 +1,10 @@
+
+<h3><%= @article.title %></h3>
+<hr><br>
+<p><%= @article.s_description %></p>
+<p><%= @article.l_description %></p>
+<p><%= @article.user.name %></p>
+<p>Published: <%= time_ago_in_words(@article.created_at) %> ago</p>
+<br>
+<%= link_to 'Edit', edit_article_path(@article) %> |
+<%= link_to 'Back', articles_path %>

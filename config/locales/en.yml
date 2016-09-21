@@ -20,4 +20,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  controller:
+    create: '%{model} was successfully created.'
+    update: '%{model} was successfully updated.'
+    destroy: '%{model} was successfully destroyed.'
