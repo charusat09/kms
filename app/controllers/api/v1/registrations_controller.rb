@@ -1,19 +1,12 @@
 class Api::V1::RegistrationsController < Api::V1::BaseController
-  skip_before_action :verify_authenticity_token
   before_action :set_user, only: [:edit, :update,:destroy]
-  respond_to :json
-# before_action :configure_account_update_params, only: [:update]
-
-  def new
-    @user = User.new
-  end
+  before_action :authorize_user!, only: [:update, :destroy]
   # POST /resource
   def create
     user = User.new(user_params)
     user.authentications.build
     if user.save
-      sign_in(user)
-      render :json => user
+      render_success(["User successfully Save.."],user.to_json)
     else
       render :json => user.errors.full_messages
     end
@@ -25,61 +18,36 @@ class Api::V1::RegistrationsController < Api::V1::BaseController
 
   # PUT /resource
   def update
-    if @user.update_attributes(user_params)
-      render :json => @user.to_json      
-    else 
-      render :json => @user.errors
+    if @user.present?
+      if @user.update_attributes(user_params)
+        render_success(["User successfully Updated.."],@user.to_json)
+      else
+        render_error(["User successfully Not Updated.."],@user.to_json)
+      end
+    else
+     render_error(["User Not Found."],[])
     end
   end
 
   def set_user
-    @user = User.find(params[:id])
+    @user = User.find_by_id(params[:id])
+    if @user.nil?
+      render_error(["User Not Found."],[])
+    else
+      @user
+    end
   end
 
   # DELETE /resource
   def destroy
-    @user.destroy
-    flash[:success] = "User successfully deleted.."
-    render json: flash.to_hash
+    if @user.present?
+      @user.destroy
+      render_error(["User successfully deleted.."],[])
+    else
+      render_error(["User Not Found."],[])
+    end
   end
 
-  # GET /resource/cancel
-  # Forces the session data which is usually expired after sign
-  # in to be expired now. This is useful if the user wants to
-  # cancel oauth signing in/up in the middle of the process,
-  # removing all OAuth session data.
-  # def cancel
-  #   super
-  # end
-
-  # protected
-
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_up_params
-  #   devise_parameter_sanitizer.permit(:sign_up) do |user_params|
-  #     user_params.permit(:name, :email, :phone, :city, :password, :password_confirmation)
-  #   end
-    
-  #   devise_parameter_sanitizer.permit(:account_update) do |u|
-  #     u.permit(:name,
-  #       :email, :phone, :city, :password, :password_confirmation, :current_password)
-  #   end
-  # end
-
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_account_update_params
-  #   devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
-  # end
-
-  # The path used after sign up.
-  # def after_sign_up_path_for(resource)
-  #   super(resource)
-  # end
-
-  # The path used after sign up for inactive accounts.
-  # def after_inactive_sign_up_path_for(resource)
-  #   super(resource)
-  # end
   def user_params
     params.require(:user).permit(:name, :email, :phone, :city, :password, :password_confirmation)
   end
