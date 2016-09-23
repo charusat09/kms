@@ -8,6 +8,7 @@ gem 'pg'
 # gem 'simple_token_authentication', '1.12.0'
 # gem 'simple_token_authentication', '~> 1.0'
 gem 'devise'
+gem "rspec"
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
@@ -32,6 +33,8 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+# Paperclip use for manage images
+gem "paperclip", "~> 5.0.0"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
