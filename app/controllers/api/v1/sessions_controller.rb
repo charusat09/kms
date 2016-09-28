@@ -11,10 +11,10 @@ class Api::V1::SessionsController < Api::V1::BaseController
         sign_in(user)
         render :json => user
       else
-        render_error(["Password Not valid."],[])
+        render_error(I18n.t("user.password"),[])
       end
     else
-      render_error(["Email Not Found.."],[])
+      render_error(I18n.t("user.email"),[])
     end
   end
 
