@@ -1,12 +1,12 @@
 class Api::V1::RegistrationsController < Api::V1::BaseController
   before_action :set_user, only: [:edit, :update,:destroy]
   before_action :authorize_user!, only: [:update, :destroy]
-  # POST /resource
+
   def create
     user = User.new(user_params)
     user.authentications.build
     if user.save
-      render_success(["User successfully Save.."],user.to_json)
+      render :json => @user
     else
       render :json => user.errors.full_messages
     end
@@ -20,21 +20,12 @@ class Api::V1::RegistrationsController < Api::V1::BaseController
   def update
     if @user.present?
       if @user.update_attributes(user_params)
-        render_success(["User successfully Updated.."],@user.to_json)
+        render :json => @user
       else
-        render_error(["User successfully Not Updated.."],@user.to_json)
+        render_error(["User successfully Not Updated.."],@user.as_json)
       end
     else
-     render_error(["User Not Found."],[])
-    end
-  end
-
-  def set_user
-    @user = User.find_by_id(params[:id])
-    if @user.nil?
       render_error(["User Not Found."],[])
-    else
-      @user
     end
   end
 
@@ -48,7 +39,12 @@ class Api::V1::RegistrationsController < Api::V1::BaseController
     end
   end
 
+  private
   def user_params
     params.require(:user).permit(:name, :email, :phone, :city, :password, :password_confirmation)
+  end
+
+  def set_user
+    @user = User.find_by_id(params[:id])
   end
 end
