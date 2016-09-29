@@ -1,5 +1,5 @@
 class Api::V1::SessionsController < Api::V1::BaseController
-  before_action :set_user, only: [:destroy]
+  # before_action :set_user, only: [:destroy]
   before_action :authorize_user!, only: :destroy
   # POST /resource/sign_in
   def create
@@ -19,6 +19,7 @@ class Api::V1::SessionsController < Api::V1::BaseController
   def destroy
     @token.destroy
     sign_out(@current_user)
+    render_error(I18n.t("user.logout"),[])
   end
 
   private
