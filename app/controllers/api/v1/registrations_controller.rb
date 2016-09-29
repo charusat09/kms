@@ -18,12 +18,9 @@ class Api::V1::RegistrationsController < Api::V1::BaseController
 
   # PUT /resource
   def update
-    if @user.present?
-      if @user.update_attributes(user_params)
-        render :json => @user
-      else
-        render_error(["User successfully Not Updated.."],@user.as_json)
-      end
+    user = @user
+    if user.present?
+      update_user(user_params,user)
     else
       render_error(["User Not Found."],[])
     end
@@ -31,15 +28,21 @@ class Api::V1::RegistrationsController < Api::V1::BaseController
 
   # DELETE /resource
   def destroy
-    if @user.present?
-      @user.destroy
-      render_error(["User successfully deleted.."],[])
+    user = @user
+    if user.present?
+      destroy_user(user)
     else
       render_error(["User Not Found."],[])
     end
   end
 
   private
+
+  def destroy_user(user)
+    user.destroy
+    render_error(["User successfully deleted.."],[])
+  end
+
   def user_params
     params.require(:user).permit(:name, :email, :phone, :city, :password, :password_confirmation)
   end
@@ -47,4 +50,13 @@ class Api::V1::RegistrationsController < Api::V1::BaseController
   def set_user
     @user = User.find_by_id(params[:id])
   end
+
+  def update_user(user_params,user)
+    if user.update_attributes(user_params)
+      render :json => user
+    else
+      render_error(["User successfully Not Updated.."],user.as_json)
+    end
+  end
+
 end

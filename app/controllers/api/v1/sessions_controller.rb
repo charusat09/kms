@@ -6,10 +6,7 @@ class Api::V1::SessionsController < Api::V1::BaseController
     if params[:email].present?
       user = User.find_by_email(params[:email])
       if user.valid_password?(params[:password])
-        token = user.authentications.build
-        token.save
-        sign_in(user)
-        render :json => user
+        sign_in_user(user)
       else
         render_error(["Password Not valid."],[])
       end
@@ -22,5 +19,14 @@ class Api::V1::SessionsController < Api::V1::BaseController
   def destroy
     @token.destroy
     sign_out(@current_user)
+  end
+
+  private
+
+  def sign_in_user(user)
+    token = user.authentications.build
+    token.save
+    sign_in(user)
+    render :json => user 
   end
 end

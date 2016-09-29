@@ -6,9 +6,9 @@ class Api::V1::PasswordsController < Devise::PasswordsController
 
   # POST /resource/password
   def create
-    @user = User.find_by_email(params[:email])
-    if @user.present?
-      @user.send_reset_password_instructions
+    user = User.find_by_email(params[:email])
+    if user.present?
+      user.send_reset_password_instructions
       render :json => "password successfully updated"
     else
       render :json => "Email Not Found.."
