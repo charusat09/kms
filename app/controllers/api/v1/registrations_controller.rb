@@ -44,7 +44,7 @@ class Api::V1::RegistrationsController < Api::V1::BaseController
   end
 
   def set_user
-    @user = User.find_by_id(user[:id])
+    @user = User.find_by_id(params[:id])
   end
 
   def update_user(user_params,user)
