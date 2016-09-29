@@ -3,9 +3,9 @@ class Api::V1::SessionsController < Api::V1::BaseController
   before_action :authorize_user!, only: :destroy
   # POST /resource/sign_in
   def create
-    if params[:email].present?
-      user = User.find_by_email(params[:email])
-      if user.valid_password?(params[:password])
+    if user[:email].present?
+      user = User.find_by_email(user[:email])
+      if user.valid_password?(user[:password])
         sign_in_user(user)
       else
         render_error(I18n.t("user.password"),[])
