@@ -6,14 +6,10 @@ class Api::V1::RegistrationsController < Api::V1::BaseController
     user = User.new(user_params)
     user.authentications.build
     if user.save
-      render :json => @user
+      render_success(I18n.t("user.create"),user.as_json)
     else
       render :json => user.errors.full_messages
     end
-  end
-
-  # GET /resource/edit
-  def edit
   end
 
   # PUT /resource
@@ -22,7 +18,7 @@ class Api::V1::RegistrationsController < Api::V1::BaseController
     if user.present?
       update_user(user_params,user)
     else
-      render_error(["User Not Found."],[])
+      render_error(I18n.t("user.not_found"),[])
     end
   end
 
@@ -32,7 +28,7 @@ class Api::V1::RegistrationsController < Api::V1::BaseController
     if user.present?
       destroy_user(user)
     else
-      render_error(["User Not Found."],[])
+      render_error(I18n.t("user.not_found"),[])
     end
   end
 
@@ -40,7 +36,7 @@ class Api::V1::RegistrationsController < Api::V1::BaseController
 
   def destroy_user(user)
     user.destroy
-    render_error(["User successfully deleted.."],[])
+    render_error(I18n.t("user.delete"),[])
   end
 
   def user_params
@@ -53,9 +49,9 @@ class Api::V1::RegistrationsController < Api::V1::BaseController
 
   def update_user(user_params,user)
     if user.update_attributes(user_params)
-      render :json => user
+      render_success(I18n.t("user.update"),@user.as_json)
     else
-      render_error(["User successfully Not Updated.."],user.as_json)
+      render_error(I18n.t("user.update_not"),@user.as_json)
     end
   end
 

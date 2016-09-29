@@ -8,10 +8,10 @@ class Api::V1::SessionsController < Api::V1::BaseController
       if user.valid_password?(params[:password])
         sign_in_user(user)
       else
-        render_error(["Password Not valid."],[])
+        render_error(I18n.t("user.password"),[])
       end
     else
-      render_error(["Email Not Found.."],[])
+      render_error(I18n.t("user.email"),[])
     end
   end
 
