@@ -1,6 +1,10 @@
 class Api::V1::ArticlesController < Api::V1::BaseController
 
   before_filter :authorize_user!,only:[:create,:update,:destroy]
+  
+  def index
+    @articles = Article.all
+  end
 
   def create
     article  =  @current_user.articles.create(article_params)

@@ -1,6 +1,6 @@
 class Api::V1::CategoriesController < Api::V1::BaseController
   before_action :set_category, only: [:update, :destroy]
-  before_action :authorize_user!
+  before_action :authorize_user! , except: [:index]
 
   def index
     @categories = Category.all
