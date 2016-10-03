@@ -4,6 +4,7 @@ class Api::V1::ArticlesController < Api::V1::BaseController
   
   def index
     @articles = Article.all
+    render_success("articles",@articles)
   end
 
   def create
