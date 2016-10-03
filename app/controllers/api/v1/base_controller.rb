@@ -24,7 +24,7 @@ class Api::V1::BaseController < ApplicationController
       if @token.present?
         login_user(@token)
       else
-        render_json({:errors => "Invalid authtoken", :status => 0}.to_json)
+        render_error('Invalid authtoken',{:errors => "Invalid authtoken", :status => 0}.to_json)
       end
     end
   end
@@ -34,7 +34,7 @@ class Api::V1::BaseController < ApplicationController
   def login_user(token)
     @current_user = User.find(token.user_id)
     unless @current_user.present?
-      render_json({:errors => "No user found with this  auth token", :status => 404}.to_json)
+      render_error('No user found with this  auth token',{:errors => "No user found with this  auth token", :status => 404}.to_json)
     end
   end
 
