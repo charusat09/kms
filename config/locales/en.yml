@@ -20,4 +20,12 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  user:
+    create: "User successfully create.."
+    update: "User successfully updated"
+    update_not: "User Not updated"
+    delete: "User successfully deleted.."
+    logout: "User successfully logout.."
+    not_found: "User Not Found..."
+    password: "Password Not valid.."
+    email : "Email Not found.."
