@@ -30,7 +30,7 @@ Rules of the Road
 
 ### Protocol
 
-  1. Make sure the staging branch is up-to-date.
+  1. Make sure the master branch is up-to-date.
 
     % git checkout master  
     % git pull origin master  
